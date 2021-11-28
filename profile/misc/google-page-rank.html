@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="/css/my-css.css">
+
+  <title>Page Rank Algorithmに関する一考察 金 輝俊、キム フィジュン、Hwi Jun KIM</title>
+
+</head>
+
+<body>
+<div class="my-container">
+  <article>
+  <h1 class="title-left">Page Rank Algorithmに関する一考察</h1>
+
+  <p class="block-right">
+  2017/6/4<br/>
+  euler.bonjour@gmail.com / <a href="https://github.com/khj1977">https://github.com/khj1977</a><br/>
+  金 輝俊 / Hwi Jun KIM
+  </p>
+
+<p class="my-p">
+2008-9年当時、page rankアルゴを調べたので、当時の理解(あってるか知らない):ページをノード、リ ンクをエッジとする。あるユーザーはページA_iを訪問する。その後、リンクX_jを通過し、別のページへ 行く。これをぐるぐるり返すと確率的ウォーキングの問題となる。
+</p>
+
+<p class="my-p">
+で、確率的ウォーキングの話はwebで色々書いているんだけど、それだと数学的には分かりにくい。ま あ物理的解釈としてはありだけど。結局、そっきのnode-edgeの問題となる。node-edgeによって生成さ れる有効グラフは行列に変換可能。
+</p>
+
+<p class="my-p">
+行列の要素はedgeのリンク強度となるはず。つまり、node_i、node_j間のedge_ijのリンク数など。で は、この行列によって何が言えるか?
+</p>
+
+<p class="my-p">
+ここからは多少物理的解釈及び、類推が入る。ユーザーがページを訪問しているわけだから、この node-edge行列Aをユーザーがページを訪問する時に行動するダイナミクスを生み出す行列として解釈 する。
+</p>
+
+<p class="my-p">
+したがって、この物理的解釈に従うならば、そこにはなんらかの収束が存在するはず。したがって、数学 的にはこれは行列Aの固有値問題となると判断される。
+</p>
+
+<p class="my-p">
+したがって原始的なpage rankアルゴリズムはページをnode、リンクをedgeとしたときにモデリングされ る行列Aの固有値問題となる。求めるべきは固有ベクトルであると思われる。なぜならば、ダイナミクスとしての解釈に従うならば主固有ベクトルにダイナミクスが収束していくからである。
+</p>
+
+<p class="my-p">
+もちろん、主固有ベクトルだけにダイナミクスが収束していくわけではない。しかし、単純化のために、1 つの主固有ベクトルだけでもいいのかもしれない。
+</p>
+
+<p class="my-p">
+したがって、最も単純な場合、主固有ベクトルを求めるために、node-edgeベクトルによって生成される 行列Aの主固有ベクトルを求めるためにpower methodを用いればいいのではないだろうか?
+</p>
+
+<p class="my-p">
+ただし、行列の次元が例えば億を超えると計算がメモリ量の制限のため、1つのマシンに乗らないか、あ るいは計算速度が遅すぎので、並列分散処理が必要となるはず。そのときは、power methodは基本的 に計算が線形なので、MapReduce化が可能。
+</p>
+
+<p class="my-p">
+したがって、原始的なpage rankの問題はnode-edgeグラフによって生成される行列Aの固有ベクトルを 求める問題となり、Map Reduceによるpower methodによる並列分散処理による解法となったのでは ないだろうか?
+</p>
+
+<p class="my-p">
+補足:この場合の解釈はnode-edgeグラフと対応する行列Aと対応するダイナミクスを考えている。対応 する状態変数はユーザー数とする。したがって、node_iに対応する状態変数x_i(t_0)はt_0における ユーザー数とする。
+</p>
+
+<p class="my-p">
+したがって、tが十分に大きければ、xはどこかに収束し、結局、数学的には主固有ベクトルの問題とな り、可視化された状態であれば、主固有ベクトルへ近づいていく問題となるのではないだうか(自分で図 を書いてみると分かりやすい)?
+</p>
+
+<p class="my-p">
+結局のところ、主固有ベクトル上のどこにいるか?という問題に最終的には落ち着きそうなので、主固 有ベクトルと各nodeベクトルの内積を求めればいいのではないだうか?nodeベクトルiは行列Aのi行目 とする。
+</p>
+
+<p class="my-p">
+結局のところ、nodeベクトルの主固有ベクトルへの射影を求める問題となり、それがpage rankとなるの ではないだろうか?
+</p>
+
+<p class="my-p">
+多少数学的厳密性にかけるが、page rankについては、いくつかの物理的解釈を取り交ぜると、こういう 考え方になるのではないだろうか?
+</p>
+
+<p class="my-p">
+ちなみに、結構似たような考え方で作った、クラスタリング-アルゴリズムの片割れ: 
+</p>
+
+<ul>
+<li><a href="https://github.com/khj1977/svd-pca/">https://github.com/khj1977/svd-pca/</a></li>
+<li><a href="https://github.com/khj1977/svd-pca/">https://github.com/khj1977/kmeans/</a></li>
+</ul>
+
+<p class="my-p">
+SVD-PCAだけど、まあ似たようなもん。特異値分解を等価な固有値問題に落として、色々計算している。これとkmeans結構精度良くクラスタリングできた。。。
+</p>
+
+<p class="my-p">
+IIRを参考にして作った。なんか、本に書いてるやつだと最終的にクラスタリング用に使えない気がしたので、適当に自分で式を付け足して改造した。
+</p>
+
+  <footer class="my-footer">以上</footer>
+</article>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="/css/my-css.css">
+
+  <title>Twitterのアーキテクチャについての推論 金 輝俊、キム フィジュン、Hwi Jun KIM</title>
+
+</head>
+
+<body>
+<div class="my-container">
+  <article>
+  <h1 class="title-left">Twitterのアーキテクチャについての推論</h1>
+
+  <p class="block-right">
+  2017/6/7<br/>
+  euler.bonjour@gmail.com / <a href="https://github.com/khj1977">https://github.com/khj1977</a><br/>
+  金 輝俊 / Hwi Jun KIM
+  </p>
+
+  <h1 class="title-center">要約</h1>
+
+  <p class="my-p">
+  本文章ではTwitterのアーキテクチャについて考察する。アーキテクチャはバックエンドとフロント側に分 けて考察する。バックエンドのアーキテクチャの考え方のポイントは1日分のtweetデータを事実上の キャッシュ的な扱いで処理することである。その実装案のメインとなるのはMySQL(InnoDB) + HandlerSocket Plugin + Adaptive Hash Indexと一日分の記憶容量である。ベースとなる仮定はだい たいのユーザーは当日分のtweetにしかアクセスしないという事である。あるいは、これを多少拡張し て、前後1日分、合計3日分のデータをMySQL(InnoDB)のAdaptive Hash Indexにのるようにしてもよ いと思う。ただし、前後と書いたのは、次の日付に切り替わる瞬間を考慮する。これでも、容量的に普通 のサーバーにぎりぎり乗る可能性がある。そして、そこからはみ出すデータはディスクアクセス前提とす る、という事である。
+  </p>
+
+  <p class="my-p">
+  あるいは似たような特性を持つデータストアを実装してもよい。
+  </p>
+
+  <p class="my-p">
+  フロント側についてのポイントは上記のtweetストア系をサブシステムとみなしたとき、そこにアクセスす るAPIとそれをクライアントと繋ぐ、cometとそれをどうスケールアウトするかである。その他のデータとの 処理 / 集計についても軽く言及している。主にApache / EventやPreforkについての議論となるが、これ は過去のネット上での議論を多分に参考にしている。
+  </p>
+
+  <p class="my-p">
+  以下、過去のtweetを時系列に引用する。たいたいにおいて、上記の趣旨に沿って書いてある。後ほ ど、適当に加筆修正する可能性がある。
+  </p>
+
+  <h1 class="title-center">本文</h1>
+
+  <h2 class="my-header2">バックエンドについて</h2>
+
+  <p class="my-p">
+  Twitterってどういうアーキテクチャなんだろう。。。よく分かんない。一日の平均tweet数が1000万。UU が500万と仮定する。簡単のために1 tweetあたり、150文字、300byteとすると(日本語で1文字。2byte の仮定)一日のtweet容量が3GBとなる。
+  </p>
+
+  <p class="my-p">
+  テキストベースで3GBなので、バイナリになって適当な係数1.5をかけて、4.5GBをtweetで消費すると仮 定する。すると、このくらいなら、適当なKVSあるいはMySQL + InnoDB + Handler Socket Pluginで処 理できてしまうのではないだろうか?
+  </p>
+
+  <p class="my-p">
+  InnoDBの場合メモリ容量が十分であれば、Adaptive Hash Indexが働くので、MySQL + InnodB + Handler Socket Pluginで事実上のハッシュインデックスベースのKVSで1日くらいのデータ量なら Tweetにアクセスできるのでは?
+  </p>
+
+  <p class="my-p">
+  また、InnoDBはMVCCなので、並列度が高く、SSDでハードウェア的に並列アクセス可能なものがあれ ば、tweetに対してかなり高速にアクセスできるのではないだろうか?
+  </p>
+
+  <p class="my-p">
+  データ処理系は以上でなんとかなりそうなので、あとはユーザーへの表示系となる。こちらは仮にtweet への並列な高速アクセスが可能であれば<br/><br/>
+
+  |tweet access sys| => (User access API i) where i = 0 ... n<br/><br/>
+
+  でなんとかなりそう?<br/><br/>
+
+  |tweet access sys| => (User access API i) where i = 0 ... n =websocketとかcomet> client かな?
+  </p>
+
+  <p class="my-p">
+  でも、gardenhoseでもクソtweetの流れ早かったので、これでいけるかかんり疑問
+  </p>
+
+  <p class="my-p">
+  なぜ、MySQL + InnoDB + Handler Socket Pluginなのか?4.5GB程度の軽いデータなら、サーバープロセスにハッシュでもたせてもいいかもしれない。適当なバイナリプロトコルでアクセス可能にするのは 簡単。
+  </p>
+
+  <p class="my-p">
+  しかし、永続化が必要なのと、SQLで他のデータと適当な処理と集計が必要になることを考えると、それ がもっとも単純なアーキテクチャではないか?ただ、ユーザー名のとりあつかいなどあるが、そこはある 程度非正規化とキャッシュの問題でクリアできるかも。
+  </p>
+
+  <p class="my-p">
+  単純なKVSとdelegate + MySQLなどでいくか、MySQL + InnoDB + Hanlder Socket Pluginでいくか はどちらがベターなのかは実際にはどうなのかは良く分からないところ。
+  </p>
+
+  <h2 class="my-header2">表示系について</h2>
+
+  <p class="my-p">
+  ここで、表示系あるいはAPIのスケールアウトの問題となるが、websocketはさておき、cometはある程度スケールアウト可能かと考える。
+  </p>
+
+  <p class="my-p">
+  comet自体は最も単純な場合XMLHttpリクエストでサーバーに対して、HTTPコネクションを張りっぱな しとし、push型の通信を可能とする。その場合、Apache/Preforkとmod-phpの場合、多数のコネクションに対して、Apacheのプロセスが増える
+  </p>
+
+  <p class="my-p">
+  ここで、Apache/Prefork + mod-phpの代わりにApache/Event + fastcgi/PHPの組み合わせを導入するとどうなるだろうか?Apache/Eventのリクエスト処理モデルよりおそらく、
+  </p>
+
+  <p class="my-p">
+  アクセス数に対して、Apache側でのメモリ消費量は線形には増えないのではないだろうか?したがっ て、ある程度cometはスケールアウトするのではないかと思う。
+  </p>
+
+  <p class="my-p">
+  なぜ、Apache/Workerではないか?まず、現時点ではどうか知らないが、PHPはスレッドセーフでは昔 はなかった気がするので、マルチスレッドで動作するworkerではPHPはクラッシュする可能性が高いの ではないだろうか?
+  </p>
+
+  <p class="my-p">
+  では、Apache/Worker + アプリケーションサーバー Y + 言語Xの組み合わせはどうか?ただし、言語X はスレッドセーフとする。eventモデルがいいのか、あるいはマルチスレッドモデルがいいのか、ここは理解が甘いため、なんとも言えない
+  </p>
+
+  <p class="my-p">
+  マルチスレッドの場合、メモリ空間の切り替えが発生しないため、タスクスイッチがマルチプロセスより早 い、また、Apache側がプロセスをforkしないため、メモリ消費量でも優位かもしれないが、 Apache/Eventに対する優位性は試してみない事には何とも言えない気がする。
+  </p>
+
+  <p class="my-p">
+  Apache/Eventに関する議論は過去の他の場所での議論を参考にしている
+  </p>
+  
+  <footer class="my-footer">以上</footer>
+</article>
+</div>
+
+</body>
+
+</html>

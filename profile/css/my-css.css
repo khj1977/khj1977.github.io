@@ -1,0 +1,16 @@
+.title-center {text-align: center; font-size: 14px; font-weight: bold;}
+.title-left {text-align: left; font-size: 14px; font-weight: bold;}
+h1.my-big-header1 {font-size: 14px; text-align: center; font-weight: bold;}
+.my-footer {font-size: 14px; text-align: center;}
+table, th, td {border: solid 1px #aaaaaa;}
+h1.my-header1 {font-size: 14px; font-weight: bold;}
+h2.my-header2 {font-size: 14px; font-weight: bold;}
+h3.my-header3 {font-size: 14px; font-weight: bold;}
+
+div.my-container {padding: 30px; font-size: 14px; font-family: Arial, Helvetica, sans-serif;}
+
+section.my-section {text-align: left;}
+p.my-p {text-align: left;}
+.block-right {text-align: right;}
+
+figure.img-center {text-align: center; margin-top: 30px; margin-bottom: 30px;}

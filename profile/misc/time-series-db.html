@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="/css/my-css.css">
+
+  <title>時系列DBのアーキテクチャについての推論 金 輝俊、キム フィジュン、Hwi Jun KIM</title>
+
+</head>
+
+<body>
+<div class="my-container">
+  <article>
+  <h1 class="title-left">時系列DBのアーキテクチャについての推論</h1>
+
+  <p class="block-right">
+  2017/6/7<br/>
+  euler.bonjour@gmail.com / <a href="https://github.com/khj1977">https://github.com/khj1977</a><br/>
+  金 輝俊 / Hwi Jun KIM
+  </p>
+
+  <h1 class="title-center">要約</h1>
+
+  <p class="my-p">
+  本文章では下記のURLで記述されている時系列DBのアーキテクチャについて推論、考察する。
+  </p>
+
+  <p class="my-p">
+  <a href="http://www.awssummit.tokyo/summit/index.html">http://www.awssummit.tokyo/summit/index.html</a>
+  </p>
+
+  <p class="my-p">
+  ”サーバ監視サービス Mackerel を提供するはてなが開発中の、高解像度・長期間のサーバメトリック収 集を実現する、新しい時系列データベースを紹介します。具体的には、Amazon ElastiCache、Amazon DynamoDB、Amazon S3 を組み合わせ、Amazon Kinesis Streams と AWS Lambda によりコンポー ネント接続した、階層構造のデータストアアーキテクチャの設計と実装を解説します。”
+  </p>
+
+  <h1 class="title-center">本文</h1>
+
+  <p class="my-p">
+  以下、過去のtweetを時系列に引用する。また、ある程度、加筆、修正している。時系列DBのアーキテ クチャについて推論について述べている。また、後ほど、さらに適当に加筆修正する可能性がある。
+  </p>
+
+  <p class="my-p">
+  上記の時系列DBのアーキテクチャについて推論するまえに、前提条件を整理する。監視目的でかつ、 メトリクスが多く、かつ、イベント取得インターバルが短い、かつ、一つプロセスあるいはVMあたりの処 理対象システムが多いと仮定する。イベントとは、例えば、CPU使用率をさす。
+  </p>
+
+  <p class="my-p">
+  時系列DBってなんやろ。。。データ量の多い監視で使うなら、こんな感じ? 
+  </p>
+
+  <p class="my-p">
+  System ＜＝ socket ＝＞ (Low Process) ＜＝＞ (Process1 API。リアルタイム処理)<br/>
+  ＜＝＞ (Process2 API 非同期処理。接続されたクライアントでDBに永続化など<br/>
+  Process1 APIで例えば、CPU使用量をごにょごにょするとか
+  </p>
+
+  <p class="my-p">
+  リアルタイム処理にはProcess1、非同期処理にはProcess2を使うと仮定する。データ量が多いなら Process2のDBへの永続化はバルクインサートでかなり高速化されるはず。しかし、非同期処理。した がって、リアルタイム処理にはProcess1 APIを使用、そこからデータを取得し、なんらかの処理を行う。 別に単なるCPU使用量でもいいし、なんかバースト出すとか
+  </p>
+
+  <p class="my-p">
+  バルクインサートの処理について補足する。通常、バルクインサートを実行するには、データをある一定 程度、例えば、100レコード分相当を保持する。Process2 APIに接続しているクライアントに保持されて いる、データをバルクインサートでinsertを実行するときは、そのinsert処理を別スレッド、あるいはプロセスをforkして処理すればいいのではないだろうか?でないと、insert処理が仮に重く、MySQLから返ってくるのが遅い場合、ストリームからのデータの取得、及び、保持が難しくなる可能性があるからである。
+  </p>
+
+  <p class="my-p">
+  しかし、実際にはその必要はないのかもしれない。多少例が異なるが、twitterのpublic timeのデータ取 得にgardenhose levelでstreaming APIを使用して取得、データをDBに保存、をしていたとき、バルクイ ンサートを使用したが、insertそのものを別スレッドなり、プロセスを使用する必要はなかった記憶があるからである。ただし、MQで非同期処理化していた。
+  </p>
+
+  <p class="my-p">
+  補足:当時gardenhose levelのstreaming APIの処理に使った言語はRubyであり、スレッドは実装上は プロセスに近かった記憶があるので、その実装自体では、スレッドとプロセス、両者を厳密に区別する必 要性はない可能性があるかもしれない。
+  </p>
+
+  <p class="my-p">
+  Process1、Process2には複数のクライアントからの同時接続をある程度、高速にこなせると仮定する。 それぞれのAPIがEventモデルか、マルチスレッドモデルか、どちらが高速処理ができるかはユース ケースによるのではないかと思う。
+  </p>
+
+  <p class="my-p">
+  実際の実装ではあまりのも素の状態すぎるので、socketだとやってられないので、なんかMQとかありも のでもいいのかも。ただし、例えば、1. MQ自体に永続化機能などがある、2. あるいはオーバースペック 過ぎて、処理が複雑で重い、などでMQ自体がボトルネックになる可能性があるので、高速性を追求す るならsocketで自作のプロトコル作るのかもしれない。複数台のマシンがlow processにいてもいけるかも。。。
+  </p>
+
+  <p class="my-p">
+  こういう事を外野から言うのは結構簡単で思いつくもんだけど、まず、プロトタイピングを行うとこにいくまでにかなりがつまづき、さらに、まともなプログラムに仕上げていき、プロダクトレベルまで持っていくの は至難の業だと経験上知っている。。。
+  </p>
+
+  <footer class="my-footer">以上</footer>
+</article>
+</div>
+
+</body>
+
+</html>
