@@ -13,5 +13,6 @@ section.my-section {text-align: left;}
 p.my-p {text-align: left;}
 .block-right {text-align: right;}
 
-figure.img-center {text-align: center; margin-top: 30px; margin-bottom: 30px;}
-img.img-pc {width: 400px; height: 280px;}
+figure.img-center {margin-top: 30px; margin-bottom: 30px;}
+img.img-pc {width: 360px; height: 252px;}
+div.my-center {text-align: center;}
