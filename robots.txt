@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.khj1977.net/sitemap.txt
+Sitemap: https://www.khj1977.net/sitemap.xml
