@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="/profile/vendor/bootstrap/profile/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="/profile/css/my-css.css">
+
+  <title>What is a modelling? What is a control? | The Mathematical Foundation of Smart Material Systems / Yet Another Mori-Tanaka</title>
+
+</head>
+
+<body>
+<div class="my-container">
+  <article>
+ 
+    <section class="my-section">
+    <h1>What is a modelling? What is a control?</h1>
+    
+    <p class="my-p">
+    Modelling:<br/>
+    Enough structure to express actual thing.
+    </p>
+
+    <p class="my-p">
+    Control:<br/>
+    Make better behaviour of controlled dynamics.
+    </p>
+
+    <p class="my-p">
+    Modelling:<br/>
+    That is OK for parameter difference. That is OK for unmodelled dynamics whose effect is not so large.
+    </p>
+
+    <p class="my-p">
+    That is not OK to cancel out major nonlinear effect since it could be large control input and there may be limitation of control input. That means that is not OK even one can deploy linear control analysis technique for system with cancelling out nonlinear effect. For worst case, a system would be broken because of large control input.
+    </p>
+
+    <p class="my-p">
+    It is not possible to make 100% correct model even modelling gets complex. But that's fine since there is robust control. But better understanding of modelling is required as described above.
+    </p>
+
+    <p class="my-p">
+    Control:<br/>
+    If it were linear system, linear algebra or laplace transform is enough to control.
+    If it were nonlinear? Not sure. But cancel effect of nonlinear? No as described above. But it is better to utilized nonlinear specific characteristics to control with minimum effort. Author suppose that there would be control method which utilize better than linear one in the sense of transient response and energy applied.
+    </p>
+
+    <p class="my-p">
+    One can imagine that if control effect is dominant to dynamics of an actual system and change the dynamical behaviour as better way. In theory, that is correct. But in practice, it is sometimes incorrect. Since there are control input limitation described as above. That means that control engineering is interaction between theory, numerical simulation, experiment and application.
+    </p>
+
+    </section>
+
+    <footer class="my-footer">
+    <div>
+      <a href="/mphil_thesis_additional/">Index</a><br/><br/>
+    </div>
+    End of Article
+  </footer>
+</article>
+</div>
+
+</body>
+
+</html>
