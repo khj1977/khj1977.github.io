@@ -18,3 +18,5 @@ figure.img-center {margin-top: 30px; margin-bottom: 30px;}
 img.img-pc {width: 320px; height: 224px;}
 img.img-smp {width: 320px; height: 224px;}
 div.my-center {text-align: center;}
+
+blockquote.my-quote {padding: 0px; margin: 10px;}
