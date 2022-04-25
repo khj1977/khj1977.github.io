@@ -49,7 +49,215 @@
 
     <ul>
     <li>What makes a system robust? A start point</li>
-    </ul>
+    </ul
+    >
+    <p class="my-p">
+    The following is the alpha of draft of this part.
+    </p>
+
+    <p class="my-p">
+    f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot<br/>
+    disturbanceF = lambda t, x, xDot: -1.0 * math.sin(t) * x - math.cos(t) * xDot - 2.0 * math.sin(t) * x + 6.0 * math.sin(t)
+    </p>
+
+    <p class="my-p">
+    Where f is ODE. And disturbanceF is disturbance input to the actual system.<br/>
+    
+    T: 0.0:10.0, deltaT = 0.01<br/>
+    
+    U = 3.0 * x1 + 15.0 * x2<br/>
+    </p>
+
+    <div class="my-center">
+    <figure>
+    <img class="img-smp" src="/mphil_thesis_additional/fig/fig1.png" alt="fig1" />
+    </figure>
+    </div>
+
+    <p class="my-p">
+    Nominal system is periodical. Transient response of observer is not good. Is it because of gain of observer or bug of program?
+    </p>
+
+    <p class="my-p">
+    Disturbance is estimated well. But there is error. That might be because of fact that gain is not appropriate. If it were adaptive, it is OK.
+    </p>
+
+    <p class="my-p">
+    f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot
+    disturbanceF = lambda t, x, xDot: -1.0 * math.sin(t) * x - math.cos(t) * xDot - 2.0 * math.sin(t) * x + 6.0 * math.sin(t)
+    </p>
+
+    <p class="my-p">
+    Nominal system is linear. But disturbance is nonlinear with sin pure disturbance. It makes system interesting behaviour. It is better to make endT longer and check basic data. And drill down.
+    </p>
+
+    <p class="my-p">
+    It might be better to change range of x-y of grpah to drill down with the same time range.
+    </p>
+
+    <p class="my-p">
+    It is better to check data with t-x and t-xdot axes to check how it oscialate from the other view point. Heat map would be better choice to check behaviour of tangent space since overall system is nonlinear. But it will require much more CPU power and hence, it might be little bit difficult though it is work to investigate it.
+    </p>
+
+    <p class="my-p">
+    envT = ode_time.ODETime(0, 100.0, 0.01)
+    With the same parameter as above.
+    </p>
+
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig2.png" alt="fig2" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    There is estimation error. So, there is effect to nonlinear disturbance to actual sytem which is oscilating. Very interesting behaviour with nonlinear.
+    </p>
+
+    <p class="my-p">
+    Is it posssible to estimate disturbance perfectly with adaptive feedback?
+    </p>
+    
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig3.png" alt="fig3" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    Range of graph is changed. There are error between oberver and actual system. There is error with disturbance estimation. It might be because of gain of observer. Since the nominal system is linear, if perfectly nonlinearlity is cancelled out, it should ocsilate around origin or stable around origin. It means that even nonlinear effect with modelled one is cancelled out, in practice, it could be still nonlinear.
+    </p>
+
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig4.png" alt="fig4" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    f = lambda t, x, xDot: -6.0 * x - 5.0 * xDot<br/>
+    disturbanceF = lambda t, x, xDot: 0.0<br/>
+    
+    T: 0:100.0 deltaT + 0.01<br/>
+    </p>
+
+    <p class="my-p">
+    Without disturbance with nonminal system is stable around origin. It converges to origin appropriately
+    </p>
+    
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig5.png" alt="fig5" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    The same setting with above. Transient response of observer is not good. But it converges to actual system well. Since nominal system is stable, it converges to origin well.
+    </p>
+
+    <p class="my-p">
+    There is little curve of trajectory of actual system.
+    </p>
+
+    <p class="my-p">
+    X: self.resultXDot Y: self.resultX
+    </p>
+
+    <p class="my-p">
+    X is little bit over shoot. But not so wrong. There may be better transient response and parameter of nominal system. It is required to change behaviour of system by feedback.
+    </p>
+    
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig6.png" alt="fig6" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    f = lambda t, x, xDot: -6.0 * x - 5.0 * xDot
+    disturbanceF = lambda t, x, xDot: 1.0 * x + 1.5 * xDot
+    </p>
+
+    <p class="my-p">
+    The nominal system behave well. With feedback. There is error of estimation of disturbance but it does not result bad result. Transient response of observer is a problem. What is happened if as a result of disturbance, the system is unstable? Is estimation speed of feedback is fast enough to stable system?
+    </p>
+
+    <p class="my-p">
+    Test the same disturbance with 0 feedback of estimation of disturbance.
+    </p>
+
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig7.png" alt="fig7" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    f = lambda t, x, xDot: -3.0 * x - 0.1 * xDot
+    disturbanceF = lambda t, x, xDot: 0.0
+    </p>
+    
+    <p class="my-p">
+    Since the effect of linear spring strong and little effect of linear dumper, it osciallating but converges slightly with wave.
+    </p>
+
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig8.png" alt="fig8" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    f = lambda t, x, xDot: -3.0 * x - 0.001 * xDot
+    disturbanceF = lambda t, x, xDot: 0.0
+    </p>
+
+    <p class="my-p">
+    Since the effect of linear dumper is too small, the system is almost oscillating.
+    </p>
+
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig9.png" alt="fig9" />
+      </figure>
+      </div>
+    
+    <p class="my-p">
+    disturbanceF = lambda t, x, xDot: 1.0 * x - 1.5 * xDot
+    </p>
+
+    <p class="my-p">
+    Disturbance is dumper. The system becomes stable around origin but dumped. But the effect is cancelled out because the disturbance is well estimated. What will be happened if trajectory is shown around origin?
+    </p>
+
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig10.png" alt="fig10" />
+      </figure>
+      </div>
+    
+      <div class="my-center">
+        <figure>
+        <img class="img-smp" src="/mphil_thesis_additional/fig/fig11.png" alt="fig11" />
+        </figure>
+        </div>
+    
+    <p class="my-p">
+    Since there is estimation error of disturbance, it oscialte with the effect of dumper as disturbance. What if gain of disturbance observer is determined adaptively? The current gain of observer is as follows:
+    </p>
+
+    <p class="my-p">
+    U = 3.0 * x1 + 15.0 * x2
+    </p>
+
+    <p class="my-p">
+    It seems the error between estimated disturbance and actual disturbance is small enough. But the system is oscillating around origin. This might be hard topic for the actual situation. The question is the same. What happened if the gain is determined adaptively? Note that the nominal system is not stable but osicillating roundly around origin. The effect of nominal system make that system behaviour?
+    </p>
+
+    <p class="my-p">
+    However, since it is delta region, it could be OK for this control method.
+    </p>
+
     </section>
 
     <footer class="my-footer">
