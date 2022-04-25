@@ -125,7 +125,7 @@
       </div>
     
     <p class="my-p">
-    Range of graph is changed. There are error between oberver and actual system. There is error with disturbance estimation. It might be because of gain of observer. Since the nominal system is linear, if perfectly nonlinearlity is cancelled out, it should ocsilate around origin or stable around origin. It means that even nonlinear effect with modelled one is cancelled out, in practice, it could be still nonlinear.
+    Range of graph is changed. There are error between oberver and actual system. There is error with disturbance estimation. It might be because of gain of observer. Since the nominal system is linear, if perfectly nonlinearlity is cancelled out, it should ocsilate around origin or stable around origin. It means that even nonlinear effect with modelled one is cancelled out, in practice, it could be still nonlinear. In this part, estimated disturbance is not used to cancel out. It might be interesting to see what will be happened if it were used to cancel out.
     </p>
 
     <div class="my-center">
@@ -175,7 +175,7 @@
     </p>
 
     <p class="my-p">
-    The nominal system behave well. With feedback. There is error of estimation of disturbance but it does not result bad result. Transient response of observer is a problem. What is happened if as a result of disturbance, the system is unstable? Is estimation speed of feedback is fast enough to stable system?
+    The nominal system behave well. There is error of estimation of disturbance but it does not result bad result. Transient response of observer is a problem. What is happened if as a result of disturbance, the system is unstable? Is estimation speed of feedback is fast enough to stable system?
     </p>
 
     <p class="my-p">
@@ -239,7 +239,7 @@
         </div>
     
     <p class="my-p">
-    Since there is estimation error of disturbance, it oscialte with the effect of dumper as disturbance. What if gain of disturbance observer is determined adaptively? The current gain of observer is as follows:
+    Since there is estimation error of disturbance, it oscialte with the effect of dumper as disturbance. What if gain of disturbance observer is determined adaptively and feedbacked to cancel out still oscilate? The current gain of observer is as follows:
     </p>
 
     <p class="my-p">
