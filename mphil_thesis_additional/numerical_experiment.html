@@ -81,7 +81,7 @@
     </div>
 
     <p class="my-p">
-    Where x axis is xdot and y axis is x. Nominal system is periodical. Transient response of observer is not good. Is it because of gain of observer or bug of program?
+    Where x axis is xdot and y axis is x. Nominal system is periodical but converges to origin. Transient response of observer is not good. Is it because of gain of observer or bug of program?
     </p>
 
     <p class="my-p">
@@ -89,7 +89,7 @@
     </p>
 
     <p class="my-p">
-    f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot
+    f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot<br/>
     disturbanceF = lambda t, x, xDot: -1.0 * math.sin(t) * x - math.cos(t) * xDot - 2.0 * math.sin(t) * x + 6.0 * math.sin(t)
     </p>
 
