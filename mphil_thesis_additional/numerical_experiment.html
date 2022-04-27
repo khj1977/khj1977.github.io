@@ -59,6 +59,17 @@
     Also, the following part is open loop response though disturbance is estimated. Study of closed loop response will be done later.
     </p>
 
+    Environment of numerical experiment is as follows:
+    <ul>
+      <li>Programming language: Python</li>
+      <li>Visualizing tool: Matplotlib</li>
+      <li>Solver of ODE: euler method (Runge-Kutta? Author thought that it is not required considering some numerical experiment done before serious analysis).</li>
+    </ul>
+
+    <p class="my-p">
+    Note that program of solver of this ODE and observer will not be open source because of considering educational effect. Authour thinks that a student should have technique to implement their own tool of experiment regardless of it is numerical experiment or real experiment.
+    </p>
+
     <p class="my-p">
     f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot<br/>
     disturbanceF = lambda t, x, xDot: -1.0 * math.sin(t) * x - math.cos(t) * xDot - 2.0 * math.sin(t) * x + 6.0 * math.sin(t)
