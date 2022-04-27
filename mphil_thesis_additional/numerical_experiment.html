@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="stylesheet" href="/profile/vendor/bootstrap/profile/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="/profile/vendor/bootstrap/css/bootstrap.min.css"> 
   <link rel="stylesheet" href="/profile/css/my-css.css">
 
   <title>Start point of an analysis of robust property of uncertain systems by numerical experiment | The Mathematical Foundation of Smart Material Systems / Yet Another Mori-Tanaka</title>
@@ -18,7 +18,7 @@
   <article>
  
     <section class="my-section">
-    <h1>Start point of an analysis of robust property of uncertain systems by numerical experiment</h1>
+    <h1 class="my-header1">Start point of an analysis of robust property of uncertain systems by numerical experiment</h1>
     
     Note that the following is the draft of contents of this chapter. Therefore, it could be changed.<br/><br/>
 
@@ -66,6 +66,8 @@
       <li>Solver of ODE: euler method (Runge-Kutta? Author thought that it is not required considering some numerical experiment done before serious analysis).</li>
     </ul>
 
+    <div class="alert alert-primary" role="alert">
+    Remark:<br/>
     <p class="my-p">
     Note that program of the solver of this ODE and observer will not be open source because of considering educational effect. Authour thinks that a student should have technique to implement their own tool of experiment regardless of it is numerical experiment or real experiment. 
     </p>
@@ -77,6 +79,7 @@
     <p class="my-p">
     Here is a hint. Author would say that it is better to study object oriented programming and design pattern. If it were possible, having little knowledge of functional programming is better.
     </p>
+    </div>
 
     <p class="my-p">
     f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot<br/>
