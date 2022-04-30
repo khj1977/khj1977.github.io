@@ -361,6 +361,28 @@
     However, since it is delta region, it could be OK for this dynamics.
     </p>
 
+    <div class="my-center">
+      <figure>
+      <img class="img-smp" src="/mphil_thesis_additional/fig/fig12.png" alt="fig12" />
+      </figure>
+    </div>
+
+    <p class="my-p">
+    f = lambda t, x, xDot: -3.0 * x - 0.1 * math.sin(2.0 * x) * x * xDot
+    </p>
+
+    <p class="my-p">
+    It may be better to analyze by FFT and tangent space with 3D which are basic data;i.e. x: xdot, y: x, z: ||x|| which is kind of Lyapunov function with taylor series with each (t, x) which is tangent space.
+    </p>
+
+    <p class="my-p">
+    Since the dynamics might go towards energy lows, it is better to analyze animated lyapunov like function with time t. Since it is nonlinear, Lyapunov function would be changed time by time.
+    </p>
+
+    <p class="my-p">
+    The question is is there nonlinear sliding mode surface which is curved but smooth? Which should be investigate by numerical calculation. Check sensibility of changing dynamics or tangent space with different control input or coefficient of dynamical system. Then, which would be first step to think about control.
+    </p>
+
     </section>
 
     <footer class="my-footer">
