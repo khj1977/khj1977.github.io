@@ -76,6 +76,61 @@
         There is always physics behind mathematics. This is my first step to deep learning.
         </p>
 
+        <h1 class="my-header1">Analysis of mathematical property of MNIST with little tiny physics</h1>
+
+        <p class="my-p">
+        In this section, tiny small physical and mathematical property of MNIST neural network is analyzed with a program and some study with numerical result. This is first step to understand what is a deep learning. Physically speaking, as shown in introduction, neural network is emulatation of brain or some wetware. But it is only frame. So, in practice, it is what kind of network and what kind of mathematical and physical model is it? It is discussed in this section.
+        </p>
+
+        <p class="my-p">
+        From the following program [DL]: deep-learning-from-scratch/ch03/neuralnet_mnist.py. 
+        </p>
+
+        <p class="my-p">
+        Author would like to express special thanks to author of [DL]. This book describes neural network by simple but enough logic. Also, it includes very good program to help understanding of neural network.
+        </p>
+
+        <pre class="python">
+        def predict(network, x):
+          W1, W2, W3 = network['W1'], network['W2'], network['W3']
+          b1, b2, b3 = network['b1'], network['b2'], network['b3']
+          a1 = np.dot(x, W1) + b1
+          z1 = sigmoid(a1)
+          a2 = np.dot(z1, W2) + b2
+          z2 = sigmoid(a2)
+          a3 = np.dot(z2, W3) + b3
+          y = softmax(a3)
+          return y
+        </pre>
+
+        <pre class="python">
+        (784, 50) print(W1.shape)
+        (50, 100) print(W2.shape)
+        (100, 10) print(W3.shape)
+        (50,)  print(b1.shape)
+        (100,) print(b2.shape)
+        (10,) print(b3.shape)
+        (784,) print(x[0].shape)
+        </pre>
+
+        <p class="my-p">
+        Input: 780 dim to 50 dim. Which is retina.<br/>
+        Mid: 50 dim to 100 dim Which is middle layer of eye or bottom layer of eye.<br/>
+        Output: 100dim to 10 dim. Which is bottom of eye or simple brain.
+        </p>
+
+        <p class="my-p">
+        This is basically eye or eye + simple brain.
+        </p>
+
+        <p class="my-p">
+        Number of lens in retina or resolution of retina is enough for this simple problem. Why bottom is only 50 dim? For eye, it is only 50 recognition? What is eye? Author thinks 100 dim to simple brain is appropriate. Brain is kind of super computer but it is wetware and each neuron is connected each other. So number of combination would be enough.
+        </p>
+
+        <p class="my-p">
+        Sigmoid emulates bit but it is analogue. Each combination or connection between neuron emulates some kind of processing or calculation. So, which is combination of analogue RAM and CPU.
+        </p>
+
         <p class="my-p">
         <h1 class="my-header1">Bibliography</h2>
         <ul>
