@@ -210,6 +210,8 @@
         </div>
 
         <h2 class="my-header2">Hypothesis 1: A start point of modelling of neural network for object detection</h2>
+
+        <h3 class="my-header3">Analysis and direction of modelling</h3>
         <p class="my-p">
           The following is a simple eye and brain part of modelling for object detection. This is first hypothesis. After some investigation, another hypothesis would be deployed.
         </p>
@@ -251,12 +253,27 @@ Cerebellum->category->what->output
           </p>
 
           <p class="my-p">
+          If it were supsevised signal, feedback is appropriate since it is close to tracking problem. If it were detection problem, it is not tracking problem but estimation. However, even so, feedback is required since it would be natural as brain. PID tensor would be made in the process of supervised signal and learning. And it would make characteristics of neural network better. Hence, it would make better estimation in the sense of physics of neural network.
+          </p>
+
+          <p class="my-p">
           What is a detail of PID tensor? Author supposes the problem is what is a characteristics output and input of CONV block of neural network. In book of [DL], there are implications about edge detection or something like that for CONV block. But author thinks it is not enough. So, mathematical experiment and some study of characteristics is required to understand what is a output and input of CONV block. And then, it will be thought what is a PID tensor feedback.
           </p>
 
           <p class="my-p">
           If this is a thesis for medical school, brain itself is investigated, and then, model is made. However, since author is applied mathematician and this model is for computer science and object detection, author's hypothesis is utilized for modelling.
           </p>
+
+          <h3 class="my-header3">Detailed modelling for numerical experiment</h3>
+
+          <h3 class="my-header3">Numerical experiment and study</h3>
+
+          Environment of numerical experiment is as follows:
+          <ul>
+            <li>Programming language: Python (ver. 3.9.x)</li>
+            <li>Parallel proccessing framework: Tensorflow</li>
+            <li>CPU and GPU: Apple M1 2020</li>
+          </ul>
 
         </section>
 
