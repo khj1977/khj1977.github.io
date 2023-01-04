@@ -168,7 +168,7 @@
     <p class="my-p">
     Using theroy described in my core M.Phil thesis, it is possible to estimate void of a material during it is under opereration. If there could be void, it should be maintenanced or even exchanged with new one. But since it is sensored by attached material, measurement itself could be broken. Hence, it can be said that measurement and mentenance on offline is important.
     </p>
-    
+
     <div class="alert alert-primary" role="alert">
       <b class="remark">Remark</b>:<br/>
       <p class="my-p">
@@ -196,6 +196,18 @@
     
     <p class="my-p">
     Range of graph is changed. There are error between oberver and actual system. There is error with disturbance estimation. It might be because of gain of observer. Since the nominal system is linear, if perfectly nonlinearlity is cancelled out, it should ocsilate around origin or stable around origin. It means that even nonlinear effect with modelled one is cancelled out, in practice, it could be still nonlinear if no robust control is applied. Actually, in the field of CFRP which is done at University of Tsukuba, there is a modelling error with nonlinear experiment whose model is complex enough. In this part, estimated disturbance is not used to cancel out. It might be interesting to see what will be happened if it were used to cancel out. It would be still nonlinear. Does it go to delta region? It should be investigated later.
+    </p>
+
+    <p class="my-p">
+    By those figures, it can be said that with appropriate feedback gain to disturbance observer, it can be estimate disturbance very well. As pointed out by other researchers, weak point of my core M.Phil thesis is definition of disturbance function f(x). That is fine to estimate parametric uncertainty by observer. But if it were hard nonlinear, is it still possible to estimate nonlinear disturbance well?
+    </p>
+
+    <p class="my-p"></p>
+    As pointed out, even nonminal system is considered as linear, there would be hidden nonlinearity. So, nonlinear disturbance is important. It is partially proved that even hard nonlinear, disturbance is estimated well. If it were adaptive, estimated would be better than this one.
+    </p>
+
+    <p class="my-p">
+    Therefore, the adaptive feedback controller proposed would be usefull for practical situation. If there are no input constraint and a user of controller does not chase, myth of nonlinear, it could be said that this adaptive robust controller is one of the choice for engineer for smart material systems or even for robot.
     </p>
 
     <div class="my-center">
