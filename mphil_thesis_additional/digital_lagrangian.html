@@ -29,11 +29,19 @@
     </p>
 
     <p class="my-p">
-    The first approach of Digital Lagrangian of a Smart Material System require energy of bending of a material. Why bending? That is it is assumed that vibration is target of control and dynamical behaviour would be modelled by the summation of all bending over the material with respect to x-y axis. First, a material is modelled with host material which is Carbon Fiber Reinforced Plastic (CFRP) and attached material which Is piezo material. Then, micro mechanics is utilized to model macro behaviour of composite material.
+    The first approach of Digital Lagrangian of a Smart Material System require energy of bending of a material. Why bending? That is it is assumed that vibration is target of control and dynamical behaviour would be modelled by the summation of all bending over the material with respect to x-y axis.
     </p>
 
     <p class="my-p">
-    Next, bending behaviour is considered, and then, energy is obtained over x-y axes. The trick is hear. Energy is function of x and y but what will be happened if which is obtained via digitized axes which is x_i and y_i? Since energy is function of x_i and y_i (I = 0 … n), differential property with x_i and y_i for each I can be obtained. Since it is lagrangian, newton's equations of motion as ODE can be obtained. Then, control can be done with high order ODE.
+    First, a material is modelled with host material which is Carbon Fiber Reinforced Plastic (CFRP) and attached material which Is piezo material. Then, micro mechanics is utilized to model macro behaviour of composite material.
+    </p>
+
+    <p class="my-p">
+    Next, bending behaviour is considered, and then, energy is obtained over x-y axes. The trick is hear. Energy is function of x and y but what will be happened if which is obtained via digitized axes which is x_i and y_i over all i (i = 0, 1, 2 ... n)? Since energy is function of x_i and y_i (I = 0 ... n), differential property with x_i and y_i for each I can be obtained. If lagrangian is obtained via x-y axes and lagrangian is evaluated with x and y, PDE will be obtained. Since it is digitimzed lagrangian, newton's equations of motion as high order ODE can be obtained. Then, control can be done with high order ODE.
+    </p>
+
+    <p class="my-p">
+    Thus, smart material systems will be target of control since it is high order ODEs with input of electricity to pieze materal and sensing of behaviour with pieazo material.
     </p>
 
     <p class="my-p">
@@ -41,7 +49,7 @@
     </p>
 
     <p class="my-p">
-    Finally, Digital Lagrangian ver. B is described here. The basic idea is very simple. Think about multi-jointed robot arm whose arm cannot be bended but each joint can be bent. Since it is multi-jointed robot arm, it can be modelled by ODE. Then, make length of arm L small enough, say delta_L. Since delta_L is close to 0, its behaviour would be close to plate. Which means that it is high order ODE but it models dynamical behaviour of plate or smart material systems.
+    Finally, Digital Lagrangian ver. B is described here. The basic idea is very simple. Think about multi-jointed robot arm whose arm is rigid body and cannot be bended but each joint can be bent. Since it is multi-jointed robot arm, it can be modelled by ODE. Then, make length of arm L small enough, say delta_L. Since delta_L is close to 0, its behaviour would be close to plate. Which means that it is high order ODE but it models dynamical behaviour of plate or smart material systems.
     </p>
     </section>
 
