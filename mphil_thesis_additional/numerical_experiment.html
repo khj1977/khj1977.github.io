@@ -82,12 +82,12 @@
     </p>
     </div>
 
-    <h2 class="my-header2">Nonlinear disturbance with physics of void in material</h2>
+    <h2 class="my-header2">Nonlinear disturbance with a physics of void in material</h2>
 
     <p class="my-p">
     In this section, nonlinear disturbance is analyzed using numerical experiment. In core thesis, it is implied that almost all class of disturbance can be estimated and cancelled out to retain robustness of a system. However, for hard nonlinear uncertainty or disturbance, is it really possible to estimate? Is there something which lacks in this theory? That question is investigated by this section with nonlinear void disturbance.
     </p>
-    
+
     <p class="my-p">
     f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot<br/>
     disturbanceF = lambda t, x, xDot: -1.0 * math.sin(t) * x - math.cos(t) * xDot - 2.0 * math.sin(t) * x + 6.0 * math.sin(t)
