@@ -385,45 +385,6 @@
     It would be written later.
     </p>
 
-    <h2 class="my-header2">Linear nominal system with nonlinear dumper and/or spring.</h2>
-
-    <p class="my-p">
-    It would be written later.  
-    </p>
-
-    <h2 class="my-header2">Anaylsis of nominally nonlinear system</h2>
-
-    <h2 class="my-header2">Nonlinear void dynamics as a nominal system</h2>
-
-    <p class="my-p">
-    It would be written later.  
-    </p>
-
-    <h2 class="my-header2">Nonlinear turbulance as a nominal system</h2>
-
-    <div class="my-center">
-      <figure>
-      <img class="img-smp" src="/mphil_thesis_additional/fig/fig12.png" alt="fig12" />
-      </figure>
-    </div>
-
-    <p class="my-p">
-    f = lambda t, x, xDot: -3.0 * x - 0.1 * math.sin(2.0 * x) * x * xDot<br/>
-    disturbanceF = lambda t, x, xDot: 0.0
-    </p>
-
-    <p class="my-p">
-    Nominal system is nonlinear. It may be better to analyze by FFT and tangent space with 3D which are basic data;i.e. x: xdot, y: x, z: ||x||^2 which is kind of Lyapunov function with taylor series with each (t, x) which is tangent space.
-    </p>
-
-    <p class="my-p">
-    Since the dynamics might go towards potential lower, it is better to analyze animated lyapunov like function with time t. It is also better to analyze vector flow with time t. Since it is nonlinear, Lyapunov function and vector flow would be changed time by time.
-    </p>
-
-    <p class="my-p">
-    The question is is there nonlinear sliding mode surface which is curved but smooth? Which should be investigated by numerical calculation. Check sensibility of changing dynamics or tangent space with different control input or coefficient of dynamical system. Then, which would be first step to think about control.
-    </p>
-
     </section>
 
     <footer class="my-footer">
