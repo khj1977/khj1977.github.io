@@ -181,6 +181,46 @@
     Range of graph is changed. There are error between oberver and actual system. There is error with disturbance estimation. It might be because of gain of observer. Since the nominal system is linear, if perfectly nonlinearlity is cancelled out, it should ocsilate around origin or stable around origin. It means that even nonlinear effect with modelled one is cancelled out, in practice, it could be still nonlinear if no robust control is applied. Actually, in the field of CFRP which is done at University of Tsukuba, there is a modelling error with nonlinear experiment whose model is complex enough. In this part, estimated disturbance is not used to cancel out. It might be interesting to see what will be happened if it were used to cancel out. It would be still nonlinear. Does it go to delta region? It should be investigated later.
     </p>
 
+    <h2 class="my-header2">Closed loop response with adaptive feedbacked nonlinear disturbanced system with a physics of void in a material</h2>
+
+    <div class="my-center">
+    <figure>
+    <img class="img-smp" src="/mphil_thesis_additional/fig/adaptive-closed-1.png" alt="fig3" />
+    </figure>
+    </div>
+
+    <div class="my-center">
+    <figure>
+    <img class="img-smp" src="/mphil_thesis_additional/fig/adaptive-closed-2.png" alt="fig3" />
+    </figure>
+    </div>
+
+    <p class="my-p">
+    Strong nonlinearity of open loop system. The difference with previous numerical experiment might be because of different initial value.
+    </p>
+
+    <p class="my-p">
+    Adaptive feedback disturbance estimation work well even it is fedbacked to actual system. It proves that even disturbance is nonlinear, this control method works.
+    </p>
+
+    <p class="my-p">
+    Actually, it could be said that assumption of disturbance f(t, x) for analysis and proof is strong and it might not be work for nonlinear disturbance but it works in this case. If nominal system is mixture of linear and nonlinear system, one way to control is to cancel out nonlinear terms. In that way this control method can be used. It is clearly seem in this numerical experiment result.
+    </p>
+
+    <p class="my-p">
+    One thing it should be mention is this numerical experiment does not cover all nonlinear effect. The question at this time is, is it possible to cover all kind of nonlinearity? It is not possible to by numerical method.
+    </p>
+
+    <p class="my-p">
+    However, major objective of this thesis is to imply for typical nonlinear effect would be possible to cover by this k-disturbance observer. And thus, it is said that this robust control method can also be used for nonlinear systems.
+    </p>
+
+    <p class="my-p">
+    The remaining topic is nominally nonlinear system and how to guarantee robustness of that class of systems. Linear algebra? Eigen value/vector? It cannot be used for nonlinear system. Forget about algebra. Rather, geometry is used to understand nominally nonlinear system. To understand system geometrically, linear systm with different characteristics are used since it can be understood via linear algebra. In addition, to understand what is a robustness, analysis of signal which stabilize systems geometrically will be utilized.
+    </p>
+
+    <h2 class="my-header2">Conclusion of adaptive feedbacked robust controlled systems</h2>
+    
     <p class="my-p">
     By those figures, it can be said that with appropriate feedback gain to disturbance observer, it can be estimate disturbance very well. As pointed out by other researchers, weak point of my core M.Phil thesis is definition of disturbance function f(x). That is fine to estimate parametric uncertainty by observer. But if it were hard nonlinear, is it still possible to estimate nonlinear disturbance well?
     </p>
