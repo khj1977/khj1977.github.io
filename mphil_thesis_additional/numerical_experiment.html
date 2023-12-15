@@ -421,11 +421,57 @@
 
     
 
-    <h2 class="my-header2">Trajectory and characteristics of control input for linear nominally unstable system  -Geometrically speaking, what kind of control input system stable?-</h2>
+    <h2 class="my-header2">Trajectory and characteristics of control input for linear nominally nonstable system  -What kind of control input system stable?-</h2>
 
+    
     <p class="my-p">
-    It would be written later.
+      <div class="my-center">
+        <figure>
+        <img class="img-smp" src="/mphil_thesis_additional/fig/fig-linear-non-controlled.png" alt="fig10" />
+        </figure>
+      </div>
+      Open loop system.
     </p>
+
+      <p class="my-p">
+      f = lambda t, x, xDot: -0.02 * x - 0.03 * xDot
+      </p>
+      <div class="my-center">
+        <figure>
+        <img class="img-smp" src="/mphil_thesis_additional/fig/fig-linear-controlled.png" alt="fig10" />
+        </figure>
+      </div>
+
+      <p class="my-p">
+      Closed loop. Feedbacked to make system stable.
+      </p>
+      <p class="my-p">
+      Control signal: disturbanceF = lambda t, x, xDot: -0.27 * xDot
+      </p>  
+
+      <p class="my-p">
+      Control signal is not inverse of trajectory of open loop actual system. Which implies that control signal or robust control signal could not necessary to be signal to cancel out behaviour of nominal actual system which is disturbed.
+      </p>
+
+      <p class="my-p">
+      Or even control signal makes system goes to equibrium and no signal is not required if it were zero dynamics at equibrium since all dynamics could be zero or x and xdot is zero.
+      </p>
+
+      <p class="my-p">
+      If disturbance is purely depends on time t, which is like sin(t), it should be canceled out. But if it were depends on x, it could not to be canceled out but manipulate vector field, and then, it could control a system, robustly. 
+      </p>
+
+      <p class="my-p">
+      Disturbance signal d(x, t) could be estimated by the method made. Then, it could be better to estimate model in that signal d(x, t) and then, to make control signal online may be better choice to control robustly.
+      </p>
+
+      <p class="my-p">
+      Actually, this robust control method can be used for even nonlinear disturbance. However, the author has interest what is a nonlinear system not just control. 
+      </p>
+
+      <p class="my-p">
+      The author's hypothesis is that there would be nonlinear control feedback which makes robust for change or affect of vector field to nominal system, not by just cancel out the uncertainty or disturbance. Analysis of visualizing vector field and lyapunoc function like value considering geometory may be the point. Thus, at further work, this issue would be tracked.
+      </p>
 
     <h2 class="my-header2">Conclusion remark</h2>
 
