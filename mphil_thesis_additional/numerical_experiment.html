@@ -70,7 +70,7 @@
     <h2 class="my-header2">Nonlinear disturbance with a physics of void in a material</h2>
 
     <p class="my-p">
-    In this section, nonlinear disturbance is analyzed using numerical experiment. In core thesis, it is implied that almost all class of disturbance can be estimated and cancelled out to retain robustness of a system. However, in practice, for hard nonlinear uncertainty or disturbance, is it really possible to estimate? Is there something which lacks in this theory? That question is investigated by this section with nonlinear void disturbance.
+    In this section, nonlinear disturbance is analyzed using numerical experiment. In core thesis, it is implied that almost all class of disturbance can be estimated and cancelled out to retain robustness of a system. However, in practice, especially, for hard nonlinear uncertainty or disturbance, is it really possible to estimate? Is there something which lacks in this theory? That question is investigated by this section with nonlinear void disturbance.
     </p>
 
     <p class="my-p">
@@ -109,11 +109,6 @@
     </p>
 
     <p class="my-p">
-    f = lambda t, x, xDot: -2.0 * x - 1.0 * xDot<br/>
-    disturbanceF = lambda t, x, xDot: -1.0 * math.sin(t) * x - math.cos(t) * xDot - 2.0 * math.sin(t) * x + 6.0 * math.sin(t)
-    </p>
-
-    <p class="my-p">
     Nominal system is linear. But disturbance is nonlinear with sin pure disturbance. It makes system interesting behaviour. It is better to make endT longer and check basic data. And drill down.
     </p>
 
@@ -141,7 +136,7 @@
     </p>
 
     <p class="my-p">
-    Is it posssible to estimate disturbance perfectly with adaptive feedback?
+    A question is, Is it possible to estimate disturbance perfectly with adaptive feedback?
     </p>
 
     <p class="my-p">
@@ -204,11 +199,11 @@
     </div>
 
     <p class="my-p">
-    Adaptive feedback disturbance estimation work well even it is fedbacked to actual system. It proves that even disturbance is nonlinear, this control method works.
+    Now, adaptive robust control with feedbacked system. Adaptive feedback disturbance estimation work well even it is fedbacked to actual system. It proves that even disturbance is nonlinear, this control method works well.
     </p>
 
     <p class="my-p">
-    Actually, it could be said that assumption of disturbance f(t, x) for analysis and proof is strong and it might not be work for nonlinear disturbance but it works in this case. If nominal system is mixture of linear and nonlinear system, one way to control is to cancel out nonlinear terms. In that way this control method can be used. It is clearly seem in this numerical experiment result.
+    Actually, it could be said that assumption of disturbance f(t, x) for analysis and proof does not think a detail of nonlinear function f_nonlinear(t, x) and it might not be work for nonlinear disturbance but as proved by this numerical experiment, it works in this case. If nominal system is mixture of linear and nonlinear system, one way to control is to cancel out nonlinear terms. In that way this control method can be used. It is clearly seem in this numerical experiment result.
     </p>
 
     <p class="my-p">
@@ -216,7 +211,7 @@
     </p>
 
     <p class="my-p">
-    However, major objective of this thesis is to imply for typical nonlinear effect would be possible to cover by this k-disturbance observer. And thus, it is said that this robust control method can also be used for nonlinear systems.
+    However, major objective of this thesis is to imply for typical nonlinear effect would be possible to cover by this k-disturbance observer. And thus, it is said that this adaptive robust control method can also be used for nonlinear systems.
     </p>
 
     <p class="my-p">
@@ -226,15 +221,15 @@
     <h2 class="my-header2">Conclusion of adaptive feedbacked robust controlled systems</h2>
     
     <p class="my-p">
-    By those figures, it can be said that with appropriate feedback gain to disturbance observer, it can be estimate disturbance very well. As pointed out by other researchers, weak point of my core M.Phil thesis is definition of disturbance function f(x). That is fine to estimate parametric uncertainty by observer. But if it were hard nonlinear, is it still possible to estimate nonlinear disturbance well?
+    By those figures, it can be said that with appropriate feedback gain to disturbance observer, it can be estimate disturbance very well. As pointed out by other researchers, weak point of my core M.Phil thesis is definition of disturbance function f(x). That is fine to estimate parametric uncertainty by observer. But if it were hard nonlinear, is it still possible to estimate nonlinear disturbance well? An answer is affirmative. By numerical experiment, it is shown that it is possible to estimate and canceled out for some cases.
     </p>
 
     <p class="my-p">
-    It could be said that the analysis or thought of what is disturbance and uncertainty, which is f(x), was shallow for my core M.Phil thesis.
+    It could be said that the analysis or thought of what is disturbance and uncertainty, which is f(x), was shallow for my core M.Phil thesis. But as said, the remaining point is to think about characteristics of nonlinear effect f_nonliner(x, t) regardless of analysis or numerical experiment. Since, it is not possible to analyze all class  or even one class nonlinear effect, as shown in this section, it is better to analyze by numerical experiment.
     </p>
 
     <p class="my-p"></p>
-    As pointed out, even nonminal system is considered as linear, there would be hidden nonlinearity. So, nonlinear disturbance is important. It is partially proved that even hard nonlinear, disturbance is estimated well. If it were adaptive, estimated disturbance would be better than this one. Note that it could be said that all the class of nonlinearity cannot be proved to be estimated. But practically speaking, numerical experiment of some class of nonlinear disturbance would be enough. The theory and proof of all the class of nonlinear disturbance is left for further work.
+    As pointed out, even nonminal system is considered as linear, there would be hidden nonlinearity. It means, one developer makes controller based on linear nominal model, that system would not work well but nonlinear behaviour would be remained. The same thing is also said to feddbacked linearized systems, since there are unmodelled nonlinear dynamics. So, nonlinear disturbance is important. It is partially proved that even hard nonlinear, disturbance is estimated well. If it were adaptive, estimated disturbance would be better than this one. Note that it could be said that all the class of nonlinearity cannot be proved to be estimated. But practically speaking, numerical experiment of some class of nonlinear disturbance would be enough. The theory and proof of all the class of nonlinear disturbance is left for further work.
     </p>
 
     <p class="my-p">
